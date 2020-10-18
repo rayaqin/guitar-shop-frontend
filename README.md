@@ -1,2 +1,2 @@
-# guitar-shop
+# guitar-shop-frontend
 Demo for educational purposes
