@@ -1,5 +1,23 @@
 .browsePageShell {
-    background-color: rgb(42, 58, 43);
-    height: 100%;
+    background-color: rgb(30, 46, 31);
+    height: calc(100% - 48px);
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: auto;
+}
+
+
+.browsePageShell::-webkit-scrollbar {
+  width: 1em;
+}
+
+.browsePageShell::-webkit-scrollbar-track {
+  background-color: rgba(66, 65, 65, 0.7);
+}
+.browsePageShell::-webkit-scrollbar-thumb {
+
+  background-color: rgba(24, 14, 14, 0.7);
+  border-radius: 10px;
 }

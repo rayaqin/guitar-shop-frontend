@@ -7,7 +7,9 @@ class DetailsPage extends Component {
     render() {
         return (
             <div className="detailsPageShell">
+                <div>
 
+                </div>
             </div>
         );
     }

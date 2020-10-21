@@ -17,7 +17,6 @@ const NavigationBar = (props) =>  {
     const theme = createMuiTheme({
         palette: {
             primary: {
-                // Purple and green play nicely together.
                 main: "#f56c2c",
             },
         },
