@@ -29,16 +29,10 @@ class CheckoutPage extends Component {
             stateCartData.push(data);
         })
 
-        console.log("data", stateCartData)
-
         this.setState({
             cartData: stateCartData,
             totalPrice: combinedPrice
         })
-
-        setTimeout(() => {
-            console.log("state", this.state);
-        }, 0);
     }
 
     handleOrderClick = () => {
