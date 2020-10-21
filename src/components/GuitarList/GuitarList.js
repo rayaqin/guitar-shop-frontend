@@ -1,6 +1,7 @@
 import React from 'react';
 import {Avatar, IconButton} from '@material-ui/core';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import './GuitarList.scss';
 import { FaGuitar } from 'react-icons/fa';
 
@@ -47,12 +48,26 @@ const GuitarList = (props) => {
                                     marginLeft: "20px",
                                     marginRight: "15px"
                                 }}
-                                onClick={() => props.addGuitarToCart(guitar)}>
-                                <AddShoppingCartIcon
-                                    style={{
-                                        color: " #1a7116",
-                                        width: "35px",
-                                        height: "35px",}}/>
+                                onClick={() => {
+                                    if(guitar.left > 0){
+                                        props.addGuitarToCart(guitar);
+                                    }
+                                }}>
+                                {guitar.left > 0 ?
+                                    <AddShoppingCartIcon
+                                        style={{
+                                            color: " #1a7116",
+                                            width: "35px",
+                                            height: "35px",
+                                        }} />
+                                :
+                                    <HighlightOffIcon
+                                        style={{
+                                            color: " #BB2112",
+                                            width: "35px",
+                                            height: "35px",
+                                        }} />}
+
                             </IconButton>
                         </div>
 

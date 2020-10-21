@@ -5,6 +5,21 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: auto;
+}
+
+
+.checkoutPageShell::-webkit-scrollbar {
+  width: 1em;
+}
+
+.checkoutPageShell::-webkit-scrollbar-track {
+  background-color: rgba(66, 65, 65, 0.7);
+}
+.checkoutPageShell::-webkit-scrollbar-thumb {
+
+  background-color: rgba(24, 14, 14, 0.7);
+  border-radius: 10px;
 }
 
 .checkoutTitle {
@@ -42,6 +57,7 @@
 
 .orderButtonContainer {
     width: 100%;
+    margin-bottom: 15px;
     display:flex;
     justify-content: center;
 }

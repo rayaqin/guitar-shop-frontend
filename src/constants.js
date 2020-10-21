@@ -1,0 +1,1 @@
+export const BACKENDURL = "http://www.google.com";

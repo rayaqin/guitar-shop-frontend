@@ -1,26 +1,56 @@
 import React, { Component } from 'react';
 import './CheckoutPage.scss';
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
+import { BACKENDURL } from '../../constants';
 
 
 class CheckoutPage extends Component {
 
     state = {
-        totalPrice: 0
+        totalPrice: 0,
+        cartData: null
     }
 
     componentDidMount(){
         let combinedPrice = 0;
+        let checkoutDataMap = new Map();
+
         this.props.cartContents.forEach((guitar)=>{
             combinedPrice += parseInt(guitar.price);
+            if(checkoutDataMap.has(guitar.name)){
+                checkoutDataMap.set(guitar.name, {data: guitar, amount: checkoutDataMap.get(guitar.name).amount+1})
+            } else {
+                checkoutDataMap.set(guitar.name, { data: guitar, amount: 1 })
+            }
         })
+        let stateCartData = [];
+        checkoutDataMap.forEach((data)=>{
+            stateCartData.push(data);
+        })
+
+        console.log("data", stateCartData)
+
         this.setState({
+            cartData: stateCartData,
             totalPrice: combinedPrice
         })
+
+        setTimeout(() => {
+            console.log("state", this.state);
+        }, 0);
     }
 
     handleOrderClick = () => {
-        console.log("order", this.props.cartContents);
+        axios.post(BACKENDURL + "/order", this.state.cartData.map((guitar)=>{
+            return { guitarId: guitar.data.id, amount: guitar.amount}
+        }))
+        .then((response)=>{
+            this.props.clearCart();
+        })
+        .catch((error)=>{
+            console.log("Error:", error);
+        })
     }
 
     render() {
@@ -28,23 +58,22 @@ class CheckoutPage extends Component {
             <div className="checkoutPageShell">
                 <div className="checkoutContainer">
                     <h1 className="checkoutTitle">Items in your cart</h1>
-                    {this.props.cartContents.length !== 0 ? this.props.cartContents.map((guitar)=>{
+                    {this.state.cartData && this.state.cartData.map((guitar)=>{
                         return (
                             <div className="checkoutItem">
-                                <p>{guitar.name}</p>
-                                <p>{guitar.price}</p>
+                                <p>{guitar.amount + "x"}</p>
+                                <p>{guitar.data.name}</p>
+                                <p>{guitar.data.price}</p>
                         </div>
                         )
-                    }) : <div className="checkoutItem centerText">
-                            You have no items in your cart yet
-                        </div>}
+                    })}
                     <div className="checkoutTotalPriceContainer">
                         <p className="checkoutTotalLabel">Total Price:</p>
                         <p className="checkoutTotalPrice">{this.state.totalPrice + "USD"}</p>
                     </div>
                     <div className="orderButtonContainer">
                         <Button
-                            disabled={this.props.cartContents.length === 0}
+                            disabled={this.state.cartData && this.state.cartData.size === 0}
                             style={{
                                 backgroundColor: "#611818",
                                 color: "#fde1ae",
